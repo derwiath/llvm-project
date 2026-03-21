@@ -533,6 +533,8 @@ template <> struct ScalarEnumerationTraits<FormatStyle::LanguageKind> {
     IO.enumCase(Value, "TextProto", FormatStyle::LK_TextProto);
     IO.enumCase(Value, "CSharp", FormatStyle::LK_CSharp);
     IO.enumCase(Value, "Json", FormatStyle::LK_Json);
+    IO.enumCase(Value, "UnrealEngineAngelscript",
+                FormatStyle::LK_UnrealEngineAngelscript);
     IO.enumCase(Value, "Verilog", FormatStyle::LK_Verilog);
   }
 };
@@ -4619,6 +4621,8 @@ static FormatStyle::LanguageKind getLanguageByFileName(StringRef &FileName) {
       FileName.ends_with_insensitive(".vh")) {
     return FormatStyle::LK_Verilog;
   }
+  if (FileName.ends_with_insensitive(".as"))
+    return FormatStyle::LK_UnrealEngineAngelscript;
   return FormatStyle::LK_Cpp;
 }
 

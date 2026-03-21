@@ -3834,13 +3834,17 @@ struct FormatStyle {
     /// Should be used for [Protocol Buffer](https://protobuf.dev/) messages in
     /// text format
     LK_TextProto,
+    /// Should be used for UnrealEngine Angelscript
+    /// (https://angelscript.hazelight.se/)
+    LK_UnrealEngineAngelscript,
     /// Should be used for Verilog and SystemVerilog.
     /// https://standards.ieee.org/ieee/1800/6700/
     /// https://sci-hub.st/10.1109/IEEESTD.2018.8299595
     LK_Verilog
   };
   bool isCpp() const {
-    return Language == LK_Cpp || Language == LK_C || Language == LK_ObjC;
+    return Language == LK_Cpp || Language == LK_C || Language == LK_ObjC ||
+           Language == LK_UnrealEngineAngelscript;
   }
   bool isCSharp() const { return Language == LK_CSharp; }
   bool isJson() const { return Language == LK_Json; }
@@ -3850,6 +3854,9 @@ struct FormatStyle {
   bool isTextProto() const { return Language == LK_TextProto; }
   bool isProto() const { return Language == LK_Proto || isTextProto(); }
   bool isTableGen() const { return Language == LK_TableGen; }
+  bool isUnrealEngineAngelscript() const {
+    return Language == LK_UnrealEngineAngelscript;
+  }
 
   /// The language that this format style targets.
   /// \note
@@ -6615,6 +6622,8 @@ inline StringRef getLanguageName(FormatStyle::LanguageKind Language) {
     return "TableGen";
   case FormatStyle::LK_TextProto:
     return "TextProto";
+  case FormatStyle::LK_UnrealEngineAngelscript:
+    return "UnrealEngineAngelscript";
   case FormatStyle::LK_Verilog:
     return "Verilog";
   default:

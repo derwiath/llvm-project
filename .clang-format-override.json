@@ -1,0 +1,4 @@
+{
+  "binary": "/Users/andreas/github.com/llvm/llvm-project/build/bin/clang-format",
+  "script": "/Users/andreas/github.com/llvm/llvm-project/clang/tools/clang-format/clang-format.py"
+}

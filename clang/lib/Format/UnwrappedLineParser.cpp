@@ -1500,10 +1500,12 @@ void UnwrappedLineParser::parseStructuralElement(
 
   // Tokens that only make sense at the beginning of a line.
   if (FormatTok->isAccessSpecifierKeyword()) {
-    if (Style.isJava() || Style.isJavaScript() || Style.isCSharp())
+    if (Style.isJava() || Style.isJavaScript() || Style.isCSharp() ||
+        Style.isUnrealEngineAngelscript()) {
       nextToken();
-    else
+    } else {
       parseAccessSpecifier();
+    }
     return;
   }
   switch (FormatTok->Tok.getKind()) {

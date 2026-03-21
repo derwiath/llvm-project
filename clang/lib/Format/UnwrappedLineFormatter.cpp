@@ -118,8 +118,10 @@ private:
   /// For example, 'public:' labels in classes are offset by 1 or 2
   /// characters to the left from their level.
   int getIndentOffset(const AnnotatedLine &Line) {
-    if (Style.isJava() || Style.isJavaScript() || Style.isCSharp())
+    if (Style.isJava() || Style.isJavaScript() || Style.isCSharp() ||
+        Style.isUnrealEngineAngelscript()) {
       return 0;
+    }
 
     const auto &RootToken = *Line.First;
 

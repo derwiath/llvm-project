@@ -81,6 +81,33 @@ TEST_F(FormatTestUnrealEngineAngelscript, RefQualifierOut) {
                "}");
 }
 
+TEST_F(FormatTestUnrealEngineAngelscript, InlineAccessSpecifiers) {
+  verifyFormat("class UMyClass\n"
+               "{\n"
+               "  int PublicMember;\n"
+               "  protected int ProtectedMember;\n"
+               "  private int PrivateMember;\n"
+               "};");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, InlineAccessSpecifiersOnMethods) {
+  verifyFormat("class UMyClass\n"
+               "{\n"
+               "  int GetPublic() const\n"
+               "  {\n"
+               "    return X;\n"
+               "  }\n"
+               "  protected int GetProtected() const\n"
+               "  {\n"
+               "    return Y;\n"
+               "  }\n"
+               "  private int GetPrivate() const\n"
+               "  {\n"
+               "    return Z;\n"
+               "  }\n"
+               "};");
+}
+
 } // namespace
 } // namespace test
 } // namespace format

@@ -50,6 +50,7 @@ private:
   bool tryMergeGreaterGreater();
   bool tryMergeUserDefinedLiteral();
   bool tryMergeNSStringLiteral();
+  bool tryMergeAngelscriptStringLiteral();
   bool tryMergeJSPrivateIdentifier();
   bool tryMergeCSharpStringLiteral();
   bool tryMergeCSharpUtf8StringLiteral();

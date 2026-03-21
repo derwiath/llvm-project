@@ -21,6 +21,7 @@ add_distinct_clang_unittest(FormatTests
   FormatTestSelective.cpp
   FormatTestTableGen.cpp
   FormatTestTextProto.cpp
+  FormatTestUnrealEngineAngelscript.cpp
   FormatTestVerilog.cpp
   FormatTokenSourceTest.cpp
   FormatReplacementTest.cpp

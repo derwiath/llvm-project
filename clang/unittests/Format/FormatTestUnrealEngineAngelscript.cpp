@@ -1,0 +1,63 @@
+//===- unittest/Format/FormatTestUnrealEngineAngelscript.cpp ----*- C++ -*-===//
+//
+// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+// See https://llvm.org/LICENSE.txt for license information.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//
+//===----------------------------------------------------------------------===//
+
+#include "FormatTestBase.h"
+
+#define DEBUG_TYPE "format-test-unreal-engine-angelscript"
+
+namespace clang {
+namespace format {
+namespace test {
+namespace {
+
+class FormatTestUnrealEngineAngelscript : public FormatTestBase {
+protected:
+  FormatStyle getDefaultStyle() const override {
+    FormatStyle Style = getLLVMStyle(FormatStyle::LK_UnrealEngineAngelscript);
+
+    // Only settings that affect the current test cases.
+    Style.IndentWidth = 2;
+    Style.PointerAlignment = FormatStyle::PAS_Left;
+    Style.AllowShortFunctionsOnASingleLine = FormatStyle::ShortFunctionStyle();
+
+    Style.BreakBeforeBraces = FormatStyle::BS_Custom;
+    Style.BraceWrapping.AfterClass = true;
+    Style.BraceWrapping.AfterFunction = true;
+    Style.BraceWrapping.SplitEmptyFunction = true;
+
+    return Style;
+  }
+};
+
+TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixF) {
+  verifyFormat("return f\"Value {Value}\";");
+  verifyFormat("FString S = f\"hello\";");
+  // The f prefix must stay attached to the string when the line wraps.
+  verifyFormat("return f\"Value ======================================"
+               "==========================================\" +\n"
+               "       f\"{Value}\";");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixN) {
+  verifyFormat("return n\"JohnDoe\";");
+  verifyFormat("FName Name = n\"Something\";");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixRequiresAdjacency) {
+  // A space between the prefix and the quote means it is an ordinary
+  // identifier followed by a string, not a format-string prefix. The two must
+  // stay separate so the spacing is normalized rather than frozen into a
+  // single merged token.
+  verifyFormat("return f \"hello\";", "return f   \"hello\";");
+  verifyFormat("FName Name = n \"x\";", "FName Name = n   \"x\";");
+}
+
+} // namespace
+} // namespace test
+} // namespace format
+} // namespace clang

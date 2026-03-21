@@ -1,0 +1,57 @@
+//===- unittest/Format/FormatTestUnrealEngineAngelscript.cpp ----*- C++ -*-===//
+//
+// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+// See https://llvm.org/LICENSE.txt for license information.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//
+//===----------------------------------------------------------------------===//
+
+#include "FormatTestBase.h"
+
+#define DEBUG_TYPE "format-test-unreal-engine-angelscript"
+
+namespace clang {
+namespace format {
+namespace test {
+namespace {
+
+class FormatTestUnrealEngineAngelscript : public FormatTestBase {
+protected:
+  FormatStyle getDefaultStyle() const override {
+    FormatStyle Style = getLLVMStyle();
+    Style.Language = FormatStyle::LK_UnrealEngineAngelscript;
+
+    // Only settings that affect the current test cases.
+    Style.TabWidth = 4;
+    Style.UseTab = FormatStyle::UT_Always;
+    Style.IndentWidth = 4;
+    Style.PointerAlignment = FormatStyle::PAS_Left;
+    Style.AllowShortFunctionsOnASingleLine = FormatStyle::ShortFunctionStyle();
+
+    Style.BreakBeforeBraces = FormatStyle::BS_Custom;
+    Style.BraceWrapping.AfterClass = true;
+    Style.BraceWrapping.AfterFunction = true;
+    Style.BraceWrapping.SplitEmptyFunction = true;
+
+    return Style;
+  }
+};
+
+TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixF) {
+  verifyFormat("return f\"Value {Value}\";");
+  verifyFormat("FString S = f\"hello\";");
+  // The f prefix must stay attached to the string when the line wraps.
+  verifyFormat("return f\"Value ======================================"
+               "==========================================\" +\n"
+               "\t   f\"{Value}\";");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixN) {
+  verifyFormat("return n\"JohnDoe\";");
+  verifyFormat("FName Name = n\"Something\";");
+}
+
+} // namespace
+} // namespace test
+} // namespace format
+} // namespace clang

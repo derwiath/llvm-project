@@ -221,6 +221,11 @@ void FormatTokenLexer::tryMergePreviousTokens() {
     }
   }
 
+  if (Style.isUnrealEngineAngelscript()) {
+    if (tryMergeAngelscriptStringLiteral())
+      return;
+  }
+
   if (tryMergeNSStringLiteral())
     return;
 
@@ -394,6 +399,28 @@ bool FormatTokenLexer::tryMergeNSStringLiteral() {
                             String->TokenText.end() - At->TokenText.begin());
   At->ColumnWidth += String->ColumnWidth;
   At->setType(TT_ObjCStringLiteral);
+  Tokens.erase(Tokens.end() - 1);
+  return true;
+}
+
+bool FormatTokenLexer::tryMergeAngelscriptStringLiteral() {
+  // Merges f"..." and n"..." into single tokens for Angelscript string
+  // prefixes. Without this, line breaking can separate the prefix from the
+  // string literal.
+  if (Tokens.size() < 2)
+    return false;
+  auto *Prefix = *(Tokens.end() - 2);
+  auto *String = *(Tokens.end() - 1);
+  if (Prefix->isNot(tok::identifier) ||
+      (Prefix->TokenText != "f" && Prefix->TokenText != "n") ||
+      String->isNot(tok::string_literal)) {
+    return false;
+  }
+  Prefix->Tok.setKind(tok::string_literal);
+  Prefix->TokenText =
+      StringRef(Prefix->TokenText.begin(),
+                String->TokenText.end() - Prefix->TokenText.begin());
+  Prefix->ColumnWidth += String->ColumnWidth;
   Tokens.erase(Tokens.end() - 1);
   return true;
 }

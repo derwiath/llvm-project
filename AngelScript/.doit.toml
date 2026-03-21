@@ -1,0 +1,11 @@
+[configure]
+cmd = "cmake -G Ninja -S ../llvm -B ../build -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS=clang"
+
+[build]
+cmd = "ninja -C ../build clang-format"
+
+[format-examples]
+cmd = "rg --files -g '*.as' Script-Examples | xargs ../build/bin/clang-format -i --style=file:.clang-format"
+
+[test]
+cmd = "ninja -C ../build FormatTests && ../build/tools/clang/unittests/Format/FormatTests --gtest_filter='FormatTestUnrealEngineAngelscript*'"

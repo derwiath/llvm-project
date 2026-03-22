@@ -57,6 +57,30 @@ TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixRequiresAdjacency) {
   verifyFormat("FName Name = n \"x\";", "FName Name = n   \"x\";");
 }
 
+TEST_F(FormatTestUnrealEngineAngelscript, RefQualifierIn) {
+  verifyFormat("void Func(const FHitResult&in Hit)\n"
+               "{\n"
+               "}");
+  verifyFormat("void Func(const FVector&in Position)\n"
+               "{\n"
+               "}");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, RefQualifierInOut) {
+  verifyFormat("void Func(FVector&inout Position)\n"
+               "{\n"
+               "}");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, RefQualifierOut) {
+  verifyFormat("void Func(FVector&out OutPosition)\n"
+               "{\n"
+               "}");
+  verifyFormat("void Func(int&out OutValue, float&out OutFloat)\n"
+               "{\n"
+               "}");
+}
+
 } // namespace
 } // namespace test
 } // namespace format

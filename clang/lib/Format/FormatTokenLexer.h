@@ -52,6 +52,7 @@ private:
   bool tryMergeNSStringLiteral();
   bool tryMergeAngelscriptStringLiteral();
   bool tryMergeAngelscriptRefQualifier();
+  bool tryMergeAngelscriptAccessSpecifier();
   bool tryMergeJSPrivateIdentifier();
   bool tryMergeCSharpStringLiteral();
   bool tryMergeCSharpUtf8StringLiteral();

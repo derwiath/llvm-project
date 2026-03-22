@@ -226,6 +226,8 @@ void FormatTokenLexer::tryMergePreviousTokens() {
       return;
     if (tryMergeAngelscriptRefQualifier())
       return;
+    if (tryMergeAngelscriptAccessSpecifier())
+      return;
   }
 
   if (tryMergeNSStringLiteral())
@@ -424,6 +426,28 @@ bool FormatTokenLexer::tryMergeAngelscriptStringLiteral() {
                 String->TokenText.end() - Prefix->TokenText.begin());
   Prefix->ColumnWidth += String->ColumnWidth;
   Tokens.erase(Tokens.end() - 1);
+  return true;
+}
+
+bool FormatTokenLexer::tryMergeAngelscriptAccessSpecifier() {
+  // Merges access:SpecifierName into a single token for Angelscript custom
+  // access specifiers (e.g. access:Internal, access:ReadOnly).
+  if (Tokens.size() < 3)
+    return false;
+  auto &Access = *(Tokens.end() - 3);
+  auto &Colon = *(Tokens.end() - 2);
+  auto &Name = *(Tokens.end() - 1);
+  if (Access->isNot(tok::identifier) || Access->TokenText != "access" ||
+      Colon->isNot(tok::colon) || Name->isNot(tok::identifier)) {
+    return false;
+  }
+  Access->Tok.setKind(tok::identifier);
+  Access->TokenText =
+      StringRef(Access->TokenText.begin(),
+                Name->TokenText.end() - Access->TokenText.begin());
+  Access->ColumnWidth += Colon->ColumnWidth + Name->ColumnWidth;
+  Access->setType(TT_StatementMacro);
+  Tokens.erase(Tokens.end() - 2, Tokens.end());
   return true;
 }
 

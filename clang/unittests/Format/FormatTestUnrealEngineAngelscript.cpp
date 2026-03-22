@@ -108,6 +108,15 @@ TEST_F(FormatTestUnrealEngineAngelscript, InlineAccessSpecifiersOnMethods) {
                "};");
 }
 
+TEST_F(FormatTestUnrealEngineAngelscript, AccessSpecifierUseOnOwnLine) {
+  verifyNoChange("access:ReadOnly\n"
+                 "float PrivateFloatValue = 0.0;");
+  verifyNoChange("access:ReadOnlyInActor\n"
+                 "void AccessibleMethod()\n"
+                 "{\n"
+                 "}");
+}
+
 } // namespace
 } // namespace test
 } // namespace format

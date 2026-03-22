@@ -117,6 +117,20 @@ TEST_F(FormatTestUnrealEngineAngelscript, AccessSpecifierUseOnOwnLine) {
                  "}");
 }
 
+TEST_F(FormatTestUnrealEngineAngelscript, AccessSpecifierDeclarationWithParenSpacing) {
+  verifyFormat("access ReadOnly = private, * (readonly)");
+  verifyFormat("access ReadOnlyInActor = private, UActor (readonly)");
+  verifyFormat(
+      "access ReadOnlyInAnyActor = private, UActor (inherited, readonly)");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript,
+       AccessSpecifierDeclarationParenSpacingWithCall) {
+  // The space is forced only before the trailing parentheses, not
+  // before an ordinary call paren elsewhere on the access declaration.
+  verifyFormat("access Foo = Helper(x), UComponent (readonly);");
+}
+
 } // namespace
 } // namespace test
 } // namespace format

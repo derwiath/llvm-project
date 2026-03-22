@@ -111,6 +111,11 @@ TEST_F(FormatTestUnrealEngineAngelscript, AccessSpecifierCustomAccess) {
                  "}");
 }
 
+TEST_F(FormatTestUnrealEngineAngelscript, AccessSpecifierModifierParenSpacing) {
+  verifyFormat("access Foo = private, UComponent (readonly);");
+  verifyFormat("access Bar = private, * (editdefaults, readonly);");
+}
+
 } // namespace
 } // namespace test
 } // namespace format

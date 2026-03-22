@@ -5205,6 +5205,13 @@ bool TokenAnnotator::spaceRequiredBefore(const AnnotatedLine &Line,
   if (Left.Finalized)
     return Right.hasWhitespaceBefore();
 
+  // Angelscript access declarations: access Foo = private, Bar (modifier);
+  // Preserve space before the modifier parentheses.
+  if (Style.isUnrealEngineAngelscript() && Right.is(tok::l_paren) &&
+      Line.First->is(tok::identifier) && Line.First->TokenText == "access") {
+    return true;
+  }
+
   const bool IsVerilog = Style.isVerilog();
   assert(!IsVerilog || !IsCpp);
 

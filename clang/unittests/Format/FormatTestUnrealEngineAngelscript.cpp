@@ -51,6 +51,57 @@ TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixN) {
   verifyFormat("FName Name = n\"Something\";");
 }
 
+TEST_F(FormatTestUnrealEngineAngelscript, RefQualifierIn) {
+  verifyFormat("void Func(const FHitResult&in Hit)\n"
+               "{\n"
+               "}");
+  verifyFormat("void Func(const FVector&in Position)\n"
+               "{\n"
+               "}");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, RefQualifierInOut) {
+  verifyFormat("void Func(FVector&inout Position)\n"
+               "{\n"
+               "}");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, RefQualifierOut) {
+  verifyFormat("void Func(FVector&out OutPosition)\n"
+               "{\n"
+               "}");
+  verifyFormat("void Func(int&out OutValue, float&out OutFloat)\n"
+               "{\n"
+               "}");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, InlineAccessSpecifiers) {
+  verifyFormat("class UMyClass\n"
+               "{\n"
+               "\tint PublicMember;\n"
+               "\tprotected int ProtectedMember;\n"
+               "\tprivate int PrivateMember;\n"
+               "};");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, InlineAccessSpecifiersOnMethods) {
+  verifyFormat("class UMyClass\n"
+               "{\n"
+               "\tint GetPublic() const\n"
+               "\t{\n"
+               "\t\treturn X;\n"
+               "\t}\n"
+               "\tprotected int GetProtected() const\n"
+               "\t{\n"
+               "\t\treturn Y;\n"
+               "\t}\n"
+               "\tprivate int GetPrivate() const\n"
+               "\t{\n"
+               "\t\treturn Z;\n"
+               "\t}\n"
+               "};");
+}
+
 } // namespace
 } // namespace test
 } // namespace format

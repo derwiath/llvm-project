@@ -650,6 +650,7 @@ features cannot lower the translation-unit ABI level;
 
 - Add `SpacesInBlockComments` option to control spacing after `/*` and
   before `*/` in ordinary block comments.
+- Add ``UnrealEngineAngelscript`` as a new supported language.
 
 - `QualifierOrder` now supports `typedef`, `consteval`, `constinit`,
   `thread_local`, `extern`, `mutable`, `signed`, `unsigned`, `long`, `short`,

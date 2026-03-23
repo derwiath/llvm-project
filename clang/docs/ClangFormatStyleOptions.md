@@ -5492,6 +5492,10 @@ the configuration (without a prefix: `Auto`).
     Should be used for [Protocol Buffer](https://protobuf.dev/) messages in
     text format
 
+  * ``LK_UnrealEngineAngelscript`` (in configuration: ``UnrealEngineAngelscript``)
+    Should be used for UnrealEngine Angelscript.
+    https://angelscript.hazelight.se/
+
   - `LK_Verilog` (in configuration: `Verilog`)
     Should be used for Verilog and SystemVerilog.
     https://standards.ieee.org/ieee/1800/6700/

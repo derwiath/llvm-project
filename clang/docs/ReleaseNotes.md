@@ -1240,6 +1240,7 @@ features cannot lower the translation-unit ABI level;
 - Extend `IndentAccessModifiers` with `AfterFirstAccessModifier` to indent
   members before the first explicit access modifier by one level. Existing
   configuration values `true` and `false` remain supported.
+- Add `UnrealEngineAngelscript` as a new supported language.
 
 ### libclang
 

@@ -7,13 +7,14 @@ standalone tool and editor integrations.
 ## Standalone Tool
 
 {program}`clang-format` is located in `clang/tools/clang-format` and can be used
-to format C/C++/Java/JavaScript/JSON/Objective-C/Protobuf/C# code.
+to format C/C++/Java/JavaScript/JSON/Objective-C/Protobuf/C#/Unreal Engine Angelscript code.
 
 % START_FORMAT_HELP
 
 ```console
 $ clang-format --help
-OVERVIEW: A tool to format C/C++/Java/JavaScript/JSON/Objective-C/Protobuf/C# code.
+OVERVIEW: A tool to format C/C++/Java/JavaScript/JSON/Objective-C/Protobuf/C#/
+Unreal Engine Angelscript code.
 
 If no arguments are specified, it formats the code from standard input
 and writes the result to the standard output.
@@ -50,6 +51,7 @@ Clang-format options:
                                      Proto: .proto .protodevel
                                      TableGen: .td
                                      TextProto: .txtpb .textpb .pb.txt .textproto .asciipb
+                                     Unreal Engine Angelscript: .as
                                      Verilog: .sv .svh .v .vh
   --cursor=<uint>                - The position of the cursor when invoking
                                    clang-format from an editor integration

@@ -5493,8 +5493,8 @@ the configuration (without a prefix: `Auto`).
     text format
 
   * ``LK_UnrealEngineAngelscript`` (in configuration: ``UnrealEngineAngelscript``)
-    Should be used for UnrealEngine Angelscript.
-    https://angelscript.hazelight.se/
+    Should be used for UnrealEngine Angelscript
+    (https://angelscript.hazelight.se/).
 
   - `LK_Verilog` (in configuration: `Verilog`)
     Should be used for Verilog and SystemVerilog.

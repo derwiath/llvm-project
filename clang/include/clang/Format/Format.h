@@ -3835,7 +3835,7 @@ struct FormatStyle {
     /// text format
     LK_TextProto,
     /// Should be used for UnrealEngine Angelscript
-    /// (https://angelscript.hazelight.se/)
+    /// (https://angelscript.hazelight.se/).
     LK_UnrealEngineAngelscript,
     /// Should be used for Verilog and SystemVerilog.
     /// https://standards.ieee.org/ieee/1800/6700/

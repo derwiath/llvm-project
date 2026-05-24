@@ -132,6 +132,7 @@ def main():
             "pb.txt",
             "textproto",
             "asciipb",  # TextProto
+            "as",  # Unreal Engine Angelscript
         ]
     )
 

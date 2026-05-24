@@ -49,6 +49,15 @@ TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixN) {
   verifyFormat("FName Name = n\"Something\";");
 }
 
+TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixRequiresAdjacency) {
+  // A space between the prefix and the quote means it is an ordinary
+  // identifier followed by a string, not a format-string prefix. The two must
+  // stay separate so the spacing is normalized rather than frozen into a
+  // single merged token.
+  verifyFormat("return f \"hello\";", "return f   \"hello\";");
+  verifyFormat("FName Name = n \"x\";", "FName Name = n   \"x\";");
+}
+
 TEST_F(FormatTestUnrealEngineAngelscript, RefQualifierIn) {
   verifyFormat("void Func(const FHitResult&in Hit)\n"
                "{\n"

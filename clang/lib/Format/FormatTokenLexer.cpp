@@ -420,6 +420,11 @@ bool FormatTokenLexer::tryMergeAngelscriptStringLiteral() {
       String->isNot(tok::string_literal)) {
     return false;
   }
+  // The prefix must immediately precede the string literal (e.g. f"x", not
+  // f "x"); otherwise it is an ordinary identifier and the intervening
+  // whitespace would be frozen into the merged token.
+  if (Prefix->TokenText.end() != String->TokenText.begin())
+    return false;
   Prefix->Tok.setKind(tok::string_literal);
   Prefix->TokenText =
       StringRef(Prefix->TokenText.begin(),

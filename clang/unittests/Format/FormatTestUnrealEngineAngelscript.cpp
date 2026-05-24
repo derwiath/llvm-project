@@ -58,6 +58,14 @@ TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixRequiresAdjacency) {
   verifyFormat("FName Name = n \"x\";", "FName Name = n   \"x\";");
 }
 
+TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixIsLanguageGated) {
+  // The f"..." / n"..." merge is Angelscript-specific. Under C++ the prefix is
+  // an ordinary identifier, so clang-format keeps it separate from the string.
+  verifyFormat("FString S = f\"hello\";");
+  verifyFormat("FString S = f \"hello\";", "FString S = f\"hello\";",
+               getLLVMStyle());
+}
+
 TEST_F(FormatTestUnrealEngineAngelscript, RefQualifierIn) {
   verifyFormat("void Func(const FHitResult&in Hit)\n"
                "{\n"
@@ -128,6 +136,29 @@ TEST_F(FormatTestUnrealEngineAngelscript,
   // The space is forced only before the trailing modifier parentheses, not
   // before an ordinary call paren elsewhere on the access declaration.
   verifyFormat("access Foo = Helper(x), Bar (readonly);");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, RealisticClass) {
+  // Members and methods with mixed inline access specifiers and an &in
+  // reference parameter, to exercise interactions between the features.
+  verifyFormat("class UMyActor\n"
+               "{\n"
+               "  int Health;\n"
+               "  protected float Speed;\n"
+               "  private bool bDead;\n"
+               "  void TakeDamage(int&in Amount)\n"
+               "  {\n"
+               "    Health -= Amount;\n"
+               "  }\n"
+               "  protected int GetHealth() const\n"
+               "  {\n"
+               "    return Health;\n"
+               "  }\n"
+               "  private void Die()\n"
+               "  {\n"
+               "    bDead = true;\n"
+               "  }\n"
+               "};");
 }
 
 } // namespace

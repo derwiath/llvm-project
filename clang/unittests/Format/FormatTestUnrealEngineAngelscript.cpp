@@ -123,6 +123,13 @@ TEST_F(FormatTestUnrealEngineAngelscript, AccessSpecifierModifierParenSpacing) {
   verifyFormat("access Bar = private, * (editdefaults, readonly);");
 }
 
+TEST_F(FormatTestUnrealEngineAngelscript,
+       AccessSpecifierModifierParenSpacingWithCall) {
+  // The space is forced only before the trailing modifier parentheses, not
+  // before an ordinary call paren elsewhere on the access declaration.
+  verifyFormat("access Foo = Helper(x), Bar (readonly);");
+}
+
 } // namespace
 } // namespace test
 } // namespace format

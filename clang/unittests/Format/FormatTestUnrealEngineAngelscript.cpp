@@ -22,9 +22,7 @@ protected:
     Style.Language = FormatStyle::LK_UnrealEngineAngelscript;
 
     // Only settings that affect the current test cases.
-    Style.TabWidth = 4;
-    Style.UseTab = FormatStyle::UT_Always;
-    Style.IndentWidth = 4;
+    Style.IndentWidth = 2;
     Style.PointerAlignment = FormatStyle::PAS_Left;
     Style.AllowShortFunctionsOnASingleLine = FormatStyle::ShortFunctionStyle();
 
@@ -43,7 +41,7 @@ TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixF) {
   // The f prefix must stay attached to the string when the line wraps.
   verifyFormat("return f\"Value ======================================"
                "==========================================\" +\n"
-               "\t   f\"{Value}\";");
+               "       f\"{Value}\";");
 }
 
 TEST_F(FormatTestUnrealEngineAngelscript, StringPrefixN) {
@@ -78,27 +76,27 @@ TEST_F(FormatTestUnrealEngineAngelscript, RefQualifierOut) {
 TEST_F(FormatTestUnrealEngineAngelscript, InlineAccessSpecifiers) {
   verifyFormat("class UMyClass\n"
                "{\n"
-               "\tint PublicMember;\n"
-               "\tprotected int ProtectedMember;\n"
-               "\tprivate int PrivateMember;\n"
+               "  int PublicMember;\n"
+               "  protected int ProtectedMember;\n"
+               "  private int PrivateMember;\n"
                "};");
 }
 
 TEST_F(FormatTestUnrealEngineAngelscript, InlineAccessSpecifiersOnMethods) {
   verifyFormat("class UMyClass\n"
                "{\n"
-               "\tint GetPublic() const\n"
-               "\t{\n"
-               "\t\treturn X;\n"
-               "\t}\n"
-               "\tprotected int GetProtected() const\n"
-               "\t{\n"
-               "\t\treturn Y;\n"
-               "\t}\n"
-               "\tprivate int GetPrivate() const\n"
-               "\t{\n"
-               "\t\treturn Z;\n"
-               "\t}\n"
+               "  int GetPublic() const\n"
+               "  {\n"
+               "    return X;\n"
+               "  }\n"
+               "  protected int GetProtected() const\n"
+               "  {\n"
+               "    return Y;\n"
+               "  }\n"
+               "  private int GetPrivate() const\n"
+               "  {\n"
+               "    return Z;\n"
+               "  }\n"
                "};");
 }
 

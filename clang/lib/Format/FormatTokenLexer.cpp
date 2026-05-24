@@ -458,7 +458,9 @@ bool FormatTokenLexer::tryMergeAngelscriptAccessSpecifier() {
 
 bool FormatTokenLexer::tryMergeAngelscriptRefQualifier() {
   // Merges &out, &in, and &inout into a single token for Angelscript
-  // parameter modifiers.
+  // parameter modifiers. in/out/inout are reserved keywords in Angelscript and
+  // can never be identifiers, so a `&` followed by one of them is always a
+  // reference qualifier, never a bitwise-and against a variable of that name.
   if (Tokens.size() < 2)
     return false;
   auto &Amp = *(Tokens.end() - 2);

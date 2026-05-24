@@ -18,8 +18,7 @@ namespace {
 class FormatTestUnrealEngineAngelscript : public FormatTestBase {
 protected:
   FormatStyle getDefaultStyle() const override {
-    FormatStyle Style = getLLVMStyle();
-    Style.Language = FormatStyle::LK_UnrealEngineAngelscript;
+    FormatStyle Style = getLLVMStyle(FormatStyle::LK_UnrealEngineAngelscript);
 
     // Only settings that affect the current test cases.
     Style.IndentWidth = 2;

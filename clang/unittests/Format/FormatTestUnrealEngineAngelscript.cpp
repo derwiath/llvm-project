@@ -116,15 +116,6 @@ TEST_F(FormatTestUnrealEngineAngelscript, InlineAccessSpecifiersOnMethods) {
                "};");
 }
 
-TEST_F(FormatTestUnrealEngineAngelscript, AccessSpecifierCustomAccess) {
-  verifyNoChange("access:Internal\n"
-                 "float PrivateFloatValue = 0.0;");
-  verifyNoChange("access:InternalWithCapability\n"
-                 "void AccessibleMethod()\n"
-                 "{\n"
-                 "}");
-}
-
 TEST_F(FormatTestUnrealEngineAngelscript, AccessSpecifierModifierParenSpacing) {
   verifyFormat("access Foo = private, UComponent (readonly);");
   verifyFormat("access Bar = private, * (editdefaults, readonly);");
@@ -135,6 +126,15 @@ TEST_F(FormatTestUnrealEngineAngelscript,
   // The space is forced only before the trailing modifier parentheses, not
   // before an ordinary call paren elsewhere on the access declaration.
   verifyFormat("access Foo = Helper(x), Bar (readonly);");
+}
+
+TEST_F(FormatTestUnrealEngineAngelscript, AccessSpecifierCustomAccess) {
+  verifyNoChange("access:Foo\n"
+                 "float PrivateFloatValue = 0.0;");
+  verifyNoChange("access:Bar\n"
+                 "void AccessibleMethod()\n"
+                 "{\n"
+                 "}");
 }
 
 TEST_F(FormatTestUnrealEngineAngelscript, RealisticClass) {

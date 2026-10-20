@@ -137,6 +137,8 @@ TEST_F(FormatTestUnrealEngineAngelscript,
   // The space is forced only before the trailing parentheses, not
   // before an ordinary call paren elsewhere on the access declaration.
   verifyFormat("access Foo = Helper(x), UComponent (readonly);");
+  // TODO: Is this really valid angelscript? See
+  // RestrictedToSpecificGlobalFunction in Example_AccessSpecifier.as
 }
 
 TEST_F(FormatTestUnrealEngineAngelscript, RealisticClass) {
